@@ -13,11 +13,11 @@ public class LoopsDemo {
 			// System.out.println(str);
 		}
 		//System.out.println(getStringsBeginsAorB("See banaanne harjutus sai tehtud arvutis"));
-		List<String> longStrings = getLongStrings("See banaanne harjutus sai tehtud arvutis");
+		List<String> longStrings = getStringsBeginsChars("See banaanne harjutus sai tehtud arvutis", "H", "s");
 		System.out.println(longStrings);
-		for (String string : longStrings) {
-			System.out.println(string);
-		}
+//		for (String string : longStrings) {
+//			System.out.println(string);
+//		}
 		
 		//System.out.println(getLongStrings("Ilm on ilus ja varesed kraaksuvad"));
 		// 1. StringTokenizeriga leida need sõnad, milles on rohkem kui 4 tähte.
@@ -85,39 +85,45 @@ public class LoopsDemo {
 
 	// 1. StringTokenizeriga leida need sõnad, milles on rohkem kui 4 tähte.
 	// getLongStrings("Tallinn on Eesti pealinn")
-	private static List<String> getLongStrings(String str) {
+	private static List<String> getLongStrings(String str, int limit) {
 		StringTokenizer tokenizer = new StringTokenizer(str);
 		List<String> result = new ArrayList<>();
 		while (tokenizer.hasMoreTokens()) {
 			String token = tokenizer.nextToken();
-			if (token.length() > 4) {
+			if (token.length() > limit) {
 				result.add(token);
 			}
 		}
 		return result;
-
 	}
+	
+	/**
+	 * Method sorts out parts of string that begins with ch1 or ch2 
+	 * @param str String that will be tokenized.
+	 * @param ch1 String beginning charecter 
+	 * @param ch2 String beginning charecter
+	 * @return List of String that begins with specific chars.
+	 */
 	// 2. StringTokenizeriga leida kõik a- või b-tähega algavad sõnad.
-	private static String getStringsBeginsAorB(String str){
+	private static List<String> getStringsBeginsChars(String str, String ch1, String ch2){
 		StringTokenizer tokenizer = new StringTokenizer(str);
-		String result ="";
+		List<String> result = new ArrayList<>();
 		while (tokenizer.hasMoreTokens()) {
 			String token = tokenizer.nextToken();
-			if (token.startsWith("a") || token.startsWith("b")) {
-				result += token + " ";
-				
+			if (token.toLowerCase().startsWith(ch1.toLowerCase()) || token.toLowerCase().startsWith(ch2.toLowerCase())) {
+				result.add(token);		
 			}
 		}
 		return result;
 	}
 	// 3. Tagastada lause, kus on eemaldatud kõik suure tähega alavad sõnad. (eraldi meetod)
-	private static String removeAllCaps(String str) {
+	private static List<String> removeAllCaps(String str) {
 		StringTokenizer tokenizer = new StringTokenizer(str);
-		String result ="";
+		List<String> result = new ArrayList<>();
 		while (tokenizer.hasMoreTokens()) {
 			String token = tokenizer.nextToken();
 			 if (Character.isLowerCase(token.charAt(0))) {
-			 result += token+" " ;
+				 result.add(token);
 			 }			
 		}
 		return result;
